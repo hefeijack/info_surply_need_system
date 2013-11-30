@@ -1,0 +1,72 @@
+--信息类别表
+create table infoType(
+id number primary key,  --id号
+name varchar2(60) not null)  --类别名称
+
+--插入数据
+
+insert into infoType values(1,'培训信息');
+insert into infoType values(2,'招聘信息');
+insert into infoType values(3,'家教信息');
+insert into infoType values(4,'求职信息');
+
+
+--付费信息表
+create table payInfo(
+id number primary key,        --付费信息的id，自增（sequence）
+title varchar2(50) not null,  --信息标题
+content varchar2(500) not null,   --信息的内容
+linkname varchar2(50) not null,   --人名
+tel varchar2(20) not null,        --电话
+publishDate date default sysdate not null,        --发送日期
+keepDays number default 2 not null,   --保留日期
+checkState number(2) default 0 not null,      --表示该信息是否通过审核
+typeId number references infoType(id)
+)
+
+--创建序列
+
+create sequence payInfo_seq
+start with 1
+increment by 1
+minvalue 1
+maxvalue 9999999
+nocache
+nocycle
+
+--测试数据
+insert into payInfo values(payInfo_seq.nextval,'hello','明天我们去找工作吧！','jackge','110',sysdate,2,0,4);
+
+--免费信息表（它和付费信息表基本一致）
+create table freeInfo(
+id number primary key,        --信息的id，自增（sequence）
+title varchar2(50) not null,  --信息标题
+content varchar2(500) not null,   --信息的内容
+linkname varchar2(50) not null,   --人名
+tel varchar2(20) not null,        --电话
+publishDate date default sysdate not null,        --发送日期
+checkState number(2) default 0 not null,      --表示该信息是否通过审核
+typeId number references infoType(id)
+)
+
+--创建序列
+
+create sequence freeInfo_seq
+start with 1
+increment by 1
+minvalue 1
+maxvalue 9999999
+nocache
+nocycle
+
+--测试数据
+insert into payInfo values(freeInfo_seq.nextval,'hello','明天我们去找工作吧！','jackge','110',sysdate,2,0,4);
+
+--广告表
+
+
+
+
+--管理员表
+
+
